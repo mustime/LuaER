@@ -1,0 +1,13 @@
+
+log("test.lua begin")
+sleep(100)
+local t0 = test.case0(10, 2.0)
+log("test.case0(10, 2.0) = " .. tostring(t0))
+local t1 = test.case1("%d + %d = %d", 10, 20)
+log("test.case1(\"%d + %d = %d\", 10, 20) = " .. "\"" tostring(t1) .. "\"")
+local t2 = test.case2(t1)
+log("test.case2(t1) = " .. tostring(t2))
+local t3 = test.case3("/mnt/sdcard/test.lua")
+log("test.case3(\"/mnt/sdcard/test.lua\") = " .. tostring(t3))
+log("test.lua end")
+sleep(100)
