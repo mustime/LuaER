@@ -6,13 +6,11 @@
 #ifndef __LUA_ER_H__
 #define __LUA_ER_H__
 
-#include <xx.h>
 extern "C"
 {
 	#include <lua/lua.h>
 	#include <lua/lualib.h>
 	#include <lua/lauxlib.h>
-
 }
 
 namespace LuaER
@@ -120,7 +118,7 @@ public:
 	}
 
 	template<typename Argument1, typename Argument2, typename Argument3, typename Argument4, typename Argument5, typename Argument6, typename Argument7>
-	static int call(lua_State* L, void (*func)(Argument1, Argument2, Argument3, Argument4, Argument5, Argument6))
+	static int call(lua_State* L, void (*func)(Argument1, Argument2, Argument3, Argument4, Argument5, Argument6, Argument7))
 	{
 		Argument1 p1 = Value::get<Argument1>(L, 1);
 		Argument2 p2 = Value::get<Argument2>(L, 2);
@@ -129,7 +127,22 @@ public:
 		Argument5 p5 = Value::get<Argument5>(L, 5);
 		Argument6 p6 = Value::get<Argument6>(L, 6);
 		Argument7 p7 = Value::get<Argument7>(L, 7);
-		(*func)(p1, p2, p3, p4, p5, p6);
+		(*func)(p1, p2, p3, p4, p5, p6, p7);
+		return 0;
+	}
+
+	template<typename Argument1, typename Argument2, typename Argument3, typename Argument4, typename Argument5, typename Argument6, typename Argument7, typename Argument8>
+	static int call(lua_State* L, void (*func)(Argument1, Argument2, Argument3, Argument4, Argument5, Argument6, Argument7, Argument8))
+	{
+		Argument1 p1 = Value::get<Argument1>(L, 1);
+		Argument2 p2 = Value::get<Argument2>(L, 2);
+		Argument3 p3 = Value::get<Argument3>(L, 3);
+		Argument4 p4 = Value::get<Argument4>(L, 4);
+		Argument5 p5 = Value::get<Argument5>(L, 5);
+		Argument6 p6 = Value::get<Argument6>(L, 6);
+		Argument7 p7 = Value::get<Argument7>(L, 7);
+		Argument8 p8 = Value::get<Argument8>(L, 8);
+		(*func)(p1, p2, p3, p4, p5, p6, p7, p8);
 		return 0;
 	}
 
@@ -222,6 +235,22 @@ public:
 		Argument6 p6 = Value::get<Argument6>(L, 6);
 		Argument7 p7 = Value::get<Argument7>(L, 7);
 		Return ret = (*func)(p1, p2, p3, p4, p5, p6, p7);
+		Value::put<Return>(L, ret);
+		return 1;
+	}
+
+	template<typename Return, typename Argument1, typename Argument2, typename Argument3, typename Argument4, typename Argument5, typename Argument6, typename Argument7, typename Argument8>
+	static int call(lua_State* L, Return (*func)(Argument1, Argument2, Argument3, Argument4, Argument5, Argument6, Argument7, Argument8))
+	{
+		Argument1 p1 = Value::get<Argument1>(L, 1);
+		Argument2 p2 = Value::get<Argument2>(L, 2);
+		Argument3 p3 = Value::get<Argument3>(L, 3);
+		Argument4 p4 = Value::get<Argument4>(L, 4);
+		Argument5 p5 = Value::get<Argument5>(L, 5);
+		Argument6 p6 = Value::get<Argument6>(L, 6);
+		Argument7 p7 = Value::get<Argument7>(L, 7);
+		Argument8 p8 = Value::get<Argument8>(L, 8);
+		Return ret = (*func)(p1, p2, p3, p4, p5, p6, p7, p8);
 		Value::put<Return>(L, ret);
 		return 1;
 	}
